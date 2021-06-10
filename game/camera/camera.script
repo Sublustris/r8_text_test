@@ -1,0 +1,53 @@
+settings = require "main.settings" 
+camera_y = 0  --глобально
+camera_x = 0  --глобально
+local pos 
+cam_moving = true
+
+
+function init(self)
+  	msg.post("#camera", "acquire_camera_focus") 
+  	pos = go.get_position()
+	pos.y = 0
+	pos.x = 0
+	go.set_position(pos)
+end
+
+function final(self)
+		pos.y = 0
+		pos.x = 0
+		go.set_position(pos)
+		msg.post("#camera", "release_camera_focus") 
+end
+
+function update(self, dt)
+	if cam_moving then		   					
+		
+		pos.x = camera_x
+		pos.y = camera_y
+		go.set_position(pos)
+		--camera_y = pos.y
+		--camera_x = pos.x
+
+		
+		if settings.shake > 0 then
+			pos.y = pos.y+settings.shake
+			go.set_position(pos)
+			settings.shake =0	
+			camera_y = pos.y
+			camera_x = pos.x
+		end	
+	end	
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("reset_camera") then
+		--восстанавливаем позицию камеры
+		pos.y = 0
+		pos.x = 0
+		go.set_position(pos)
+		
+ 	end
+end
+
+

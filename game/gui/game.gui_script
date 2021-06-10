@@ -1,0 +1,26 @@
+local hh = require ("main.hashes")
+local hm = require ("game.gui.hints_manager")
+local gm = require ("game.gui.gui_manager")
+
+
+local guiButtons = {"jump","go_to_point", "pick_from_point", "drop_to_point","combine","if_fail"}
+
+--===============================================================================
+
+function init(self)
+	hm.init()
+	for i = 1, #guiButtons do
+		local button = gui.get_node(guiButtons[i])
+		gui.set_color (button, gm.pickColor(guiButtons[i]))
+	end
+
+	local text ="<p><b><color=black> Заголовок сообщения </color></b></p>"..
+	"<p><color=maroon>Основной текст всплывающего сообщения с переносами строк,\n и прочими фичами из richText</color></p>"
+
+	--показ хинта (сейчас он просто гвоздями прибит в центре экрана)
+	hm.requestHint(hm.types.buildMenu ,text, vmath.vector3(	1920/2,	1080/1.5,	0),	hash("top"))	
+end
+
+
+
+
