@@ -3,10 +3,6 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/cursor.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/images/UI/ui_button_1.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
